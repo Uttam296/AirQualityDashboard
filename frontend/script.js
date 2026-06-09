@@ -1,15 +1,25 @@
-let updateBtn = document.getElementById("updateBtn");
+const updateBtn = document.getElementById("updateBtn");
 
-updateBtn.addEventListener("click", function(){
+updateBtn.addEventListener("click", async () => {
 
-    document.getElementById("aqi").innerText = 135;
+    try {
 
-    document.getElementById("pm25").innerText = 72;
+        const response = await fetch("http://localhost:3000/api/air");
 
-    document.getElementById("pm10").innerText = 98;
+        const data = await response.json();
 
-    document.getElementById("co").innerText = 1.1;
+        document.getElementById("aqi").innerText = data.aqi;
+        document.getElementById("pm25").innerText = data.pm25;
+        document.getElementById("pm10").innerText = data.pm10;
+        document.getElementById("co").innerText = data.co;
+        document.getElementById("no2").innerText = data.no2;
 
-    document.getElementById("no2").innerText = 24;
+    }
+
+    catch (error) {
+
+        console.log(error);
+
+    }
 
 });

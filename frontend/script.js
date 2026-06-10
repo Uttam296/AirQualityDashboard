@@ -4,7 +4,11 @@ updateBtn.addEventListener("click", async () => {
 
     try {
 
-        const response = await fetch("http://localhost:3000/api/air");
+        const city = document.getElementById("cityInput").value;
+
+        const response = await fetch(
+            `http://localhost:3000/api/air?city=${city}`
+        );
 
         const data = await response.json();
 

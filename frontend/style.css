@@ -68,3 +68,28 @@ button:hover{
 .card p{
     font-size:35px;
 }
+.chart-card{
+    width:80%;
+    margin:40px auto;
+    padding:30px;
+
+    background:rgba(255,255,255,0.2);
+
+    backdrop-filter:blur(10px);
+
+    border-radius:20px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.card{
+    transition:0.4s;
+}
+
+.card:hover{
+
+    transform:translateY(-10px);
+
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+
+}

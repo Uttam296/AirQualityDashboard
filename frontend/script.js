@@ -1,3 +1,4 @@
+let myChart;
 const updateBtn = document.getElementById("updateBtn");
 
 updateBtn.addEventListener("click", async () => {
@@ -61,6 +62,50 @@ updateBtn.addEventListener("click", async () => {
         document.getElementById("aqiStatus").innerText = status;
 
         document.getElementById("recommendation").innerText = recommendation;
+        if(myChart){
+
+    myChart.destroy();
+
+}
+
+const ctx = document
+    .getElementById("pollutionChart");
+
+myChart = new Chart(ctx, {
+
+    type: "bar",
+
+    data: {
+
+        labels: [
+
+            "PM2.5",
+            "PM10",
+            "CO",
+            "NO₂"
+
+        ],
+
+        datasets: [{
+
+            label: "Pollutant Levels",
+
+            data: [
+
+                data.pm25,
+                data.pm10,
+                data.co,
+                data.no2
+
+            ],
+
+            borderWidth: 1
+
+        }]
+
+    }
+
+});
 
     }
 

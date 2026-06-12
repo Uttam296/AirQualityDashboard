@@ -11,8 +11,13 @@
 <body>
 
     <h1>🌍 Air Quality Dashboard</h1>
+    <button id="themeBtn">
+    🌙 Dark Mode
+</button>
+    
 
     <div class="search-box">
+        
 
         <input
             type="text"
@@ -25,6 +30,10 @@
         </button>
 
     </div>
+    <div id="loading">
+    Loading...
+</div>
+   
 
     <div class="status-card">
 
@@ -39,6 +48,42 @@
         </p>
 
     </div>
+       
+       <div class="gauge-card">
+
+    <h2>📈 AQI Meter</h2>
+
+    <div class="gauge">
+
+        <div class="gauge-fill" id="gaugeFill">
+
+            <span id="gaugeValue">
+                0
+            </span>
+
+        </div>
+
+    </div>
+
+</div>
+<div class="weather-card">
+
+    <h2>🌦 Weather</h2>
+
+    <h3 id="temperature">
+        Temperature : --
+    </h3>
+
+    <h3 id="humidity">
+        Humidity : --
+    </h3>
+
+    <h3 id="wind">
+        Wind Speed : --
+    </h3>
+
+</div>
+
 
     <div class="container">
 

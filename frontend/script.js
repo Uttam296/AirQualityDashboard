@@ -1,3 +1,10 @@
+const themeBtn = document.getElementById("themeBtn");
+
+themeBtn.addEventListener("click",()=>{
+
+    document.body.classList.toggle("dark-mode");
+
+});
 let myChart;
 const updateBtn = document.getElementById("updateBtn");
 
@@ -6,12 +13,14 @@ updateBtn.addEventListener("click", async () => {
     try {
 
         const city = document.getElementById("cityInput").value;
+        document.getElementById("loading").style.display="block";
 
         const response = await fetch(
             `http://localhost:3000/api/air?city=${city}`
         );
 
         const data = await response.json();
+        document.getElementById("loading").style.display="none";
 
         document.getElementById("aqi").innerText = data.aqi;
         document.getElementById("pm25").innerText = data.pm25;
@@ -62,6 +71,25 @@ updateBtn.addEventListener("click", async () => {
         document.getElementById("aqiStatus").innerText = status;
 
         document.getElementById("recommendation").innerText = recommendation;
+
+        document.getElementById("gaugeValue").innerText=data.aqi;
+
+let color="green";
+
+if(data.aqi>100){
+
+    color="orange";
+
+}
+
+if(data.aqi>200){
+
+    color="red";
+
+}
+
+document.getElementById("gaugeFill").style.background=color;
+
         if(myChart){
 
     myChart.destroy();

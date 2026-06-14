@@ -1,3 +1,14 @@
+const locationBtn =
+document.getElementById("locationBtn");
+
+const saveCityBtn =
+document.getElementById("saveCityBtn");
+
+const favoriteCitiesDiv =
+document.getElementById("favoriteCities");
+let map;
+
+let marker;
 const themeBtn = document.getElementById("themeBtn");
 
 themeBtn.addEventListener("click",()=>{
@@ -27,6 +38,24 @@ updateBtn.addEventListener("click", async () => {
         document.getElementById("pm10").innerText = data.pm10;
         document.getElementById("co").innerText = data.co;
         document.getElementById("no2").innerText = data.no2;
+
+        if (!map) {
+
+    map = L.map("map").setView(
+        [data.lat, data.lon],
+        10
+    );
+
+    L.tileLayer(
+        "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+        {
+            maxZoom: 19
+        }
+    ).addTo(map);
+
+}
+
+
 
         let status = "";
         let recommendation = "";
@@ -142,5 +171,110 @@ myChart = new Chart(ctx, {
         console.log(error);
 
     }
+
+});
+
+saveCityBtn.addEventListener("click",()=>{
+
+    const city =
+    document.getElementById("cityInput").value;
+
+    let favorites =
+    JSON.parse(
+        localStorage.getItem("favorites")
+    ) || [];
+
+    if(!favorites.includes(city)){
+
+        favorites.push(city);
+
+        localStorage.setItem(
+            "favorites",
+            JSON.stringify(favorites)
+        );
+
+    }
+
+    displayFavorites();
+
+});
+
+function displayFavorites(){
+
+    favoriteCitiesDiv.innerHTML="";
+
+    let favorites =
+    JSON.parse(
+        localStorage.getItem("favorites")
+    ) || [];
+
+    favorites.forEach(city=>{
+
+        const button =
+        document.createElement("button");
+
+        button.className =
+        "favorite-city";
+
+        button.innerText = city;
+
+        button.onclick = ()=>{
+
+            document.getElementById(
+                "cityInput"
+            ).value = city;
+
+            updateBtn.click();
+
+        };
+
+        favoriteCitiesDiv.appendChild(
+            button
+        );
+
+    });
+
+}
+
+displayFavorites();
+locationBtn.addEventListener("click",()=>{
+
+    navigator.geolocation.getCurrentPosition(
+
+        async(position)=>{
+
+            try{
+
+                const lat =
+                position.coords.latitude;
+
+                const lon =
+                position.coords.longitude;
+
+                const response =
+                await fetch(
+                    `http://localhost:3000/api/location?lat=${lat}&lon=${lon}`
+                );
+
+                const data =
+                await response.json();
+
+                document.getElementById(
+                    "cityInput"
+                ).value = data.city;
+
+                updateBtn.click();
+
+            }
+
+            catch(error){
+
+                console.log(error);
+
+            }
+
+        }
+
+    );
 
 });

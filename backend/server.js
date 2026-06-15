@@ -10,6 +10,7 @@ app.use(cors());
 const PORT = 3000;
 
 const API_KEY = process.env.AQICN_API_KEY;
+const WEATHER_KEY = process.env.OPENWEATHER_API_KEY;
 
 app.get("/api/air", async (req, res) => {
 
@@ -23,9 +24,18 @@ app.get("/api/air", async (req, res) => {
 
        console.log(JSON.stringify(response.data, null, 2));
 
-        const data = response.data.data;
+const data = response.data.data;
 
-        res.json({
+const weatherResponse = await axios.get(
+
+    `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${WEATHER_KEY}`
+
+);
+
+const weather = weatherResponse.data;
+
+
+  res.json({
 
     aqi:data.aqi,
 
@@ -39,7 +49,13 @@ app.get("/api/air", async (req, res) => {
 
     lat:data.city.geo[0],
 
-    lon:data.city.geo[1]
+    lon:data.city.geo[1],
+
+    temperature:weather.main.temp,
+
+    humidity:weather.main.humidity,
+
+    wind:weather.wind.speed
 
 });
 

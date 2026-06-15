@@ -39,6 +39,15 @@ updateBtn.addEventListener("click", async () => {
         document.getElementById("co").innerText = data.co;
         document.getElementById("no2").innerText = data.no2;
 
+        document.getElementById("temperature").innerText =
+data.temperature + " °C";
+
+document.getElementById("humidity").innerText =
+data.humidity + " %";
+
+document.getElementById("wind").innerText =
+data.wind + " m/s";
+
         if (!map) {
 
     map = L.map("map").setView(

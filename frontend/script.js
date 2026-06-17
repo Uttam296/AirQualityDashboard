@@ -16,6 +16,7 @@ themeBtn.addEventListener("click",()=>{
     document.body.classList.toggle("dark-mode");
 
 });
+let pieChart;
 let myChart;
 let historyChart;
 const updateBtn = document.getElementById("updateBtn");
@@ -209,6 +210,55 @@ myChart = new Chart(ctx, {
     }
 
 });
+if(pieChart){
+
+    pieChart.destroy();
+
+}
+
+pieChart = new Chart(
+
+    document.getElementById("pieChart"),
+
+    {
+
+        type:"doughnut",
+
+        data:{
+
+            labels:[
+
+                "PM2.5",
+
+                "PM10",
+
+                "CO",
+
+                "NO₂"
+
+            ],
+
+            datasets:[{
+
+                data:[
+
+                    data.pm25,
+
+                    data.pm10,
+
+                    data.co,
+
+                    data.no2
+
+                ]
+
+            }]
+
+        }
+
+    }
+
+);
 drawHistoryChart();
 
     }

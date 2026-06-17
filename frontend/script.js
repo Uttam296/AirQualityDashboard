@@ -17,6 +17,7 @@ themeBtn.addEventListener("click",()=>{
 
 });
 let myChart;
+let historyChart;
 const updateBtn = document.getElementById("updateBtn");
 
 updateBtn.addEventListener("click", async () => {
@@ -31,6 +32,33 @@ updateBtn.addEventListener("click", async () => {
         );
 
         const data = await response.json();
+        let history =
+JSON.parse(
+    localStorage.getItem("aqiHistory")
+) || [];
+
+history.push({
+
+    city: city,
+
+    aqi: data.aqi
+
+});
+
+if(history.length > 10){
+
+    history.shift();
+
+}
+
+localStorage.setItem(
+
+    "aqiHistory",
+
+    JSON.stringify(history)
+
+);
+
         document.getElementById("loading").style.display="none";
 
         document.getElementById("aqi").innerText = data.aqi;
@@ -109,6 +137,15 @@ data.wind + " m/s";
         document.getElementById("aqiStatus").innerText = status;
 
         document.getElementById("recommendation").innerText = recommendation;
+        if(data.aqi > 200){
+
+    alert(
+
+        "⚠ Very unhealthy air quality detected!"
+
+    );
+
+}
 
         document.getElementById("gaugeValue").innerText=data.aqi;
 
@@ -172,6 +209,7 @@ myChart = new Chart(ctx, {
     }
 
 });
+drawHistoryChart();
 
     }
 
@@ -182,6 +220,7 @@ myChart = new Chart(ctx, {
     }
 
 });
+
 
 saveCityBtn.addEventListener("click",()=>{
 
@@ -287,3 +326,58 @@ locationBtn.addEventListener("click",()=>{
     );
 
 });
+drawHistoryChart();
+function drawHistoryChart(){
+
+    let history =
+    JSON.parse(
+        localStorage.getItem("aqiHistory")
+    ) || [];
+
+    if(historyChart){
+
+        historyChart.destroy();
+
+    }
+
+    historyChart = new Chart(
+
+        document.getElementById(
+            "historyChart"
+        ),
+
+        {
+
+            type:"line",
+
+            data:{
+
+                labels:
+
+                history.map(
+                    item => item.city
+                ),
+
+                datasets:[{
+
+                    label:"AQI",
+
+                    data:
+
+                    history.map(
+                        item => item.aqi
+                    ),
+
+                    fill:false,
+
+                    tension:.4
+
+                }]
+
+            }
+
+        }
+
+    );
+
+}

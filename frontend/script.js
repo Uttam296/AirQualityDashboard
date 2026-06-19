@@ -277,7 +277,6 @@ drawHistoryChart();
 
 });
 
-
 saveCityBtn.addEventListener("click",()=>{
 
     const city =
@@ -288,13 +287,16 @@ saveCityBtn.addEventListener("click",()=>{
         localStorage.getItem("favorites")
     ) || [];
 
-    if(!favorites.includes(city)){
+    if(city && !favorites.includes(city)){
 
         favorites.push(city);
 
         localStorage.setItem(
+
             "favorites",
+
             JSON.stringify(favorites)
+
         );
 
     }
@@ -303,9 +305,10 @@ saveCityBtn.addEventListener("click",()=>{
 
 });
 
+
 function displayFavorites(){
 
-    favoriteCitiesDiv.innerHTML="";
+    favoriteCitiesDiv.innerHTML = "";
 
     let favorites =
     JSON.parse(
@@ -320,17 +323,74 @@ function displayFavorites(){
         button.className =
         "favorite-city";
 
-        button.innerText = city;
+        button.innerHTML =
 
-        button.onclick = ()=>{
+        `${city}
+        <span class="delete-city">
+        ❌
+        </span>`;
 
-            document.getElementById(
-                "cityInput"
-            ).value = city;
 
-            updateBtn.click();
 
-        };
+        button.addEventListener(
+
+            "click",
+
+            ()=>{
+
+                document.getElementById(
+                    "cityInput"
+                ).value = city;
+
+                updateBtn.click();
+
+            }
+
+        );
+
+
+
+        button.querySelector(
+            ".delete-city"
+        ).addEventListener(
+
+            "click",
+
+            (e)=>{
+
+                e.stopPropagation();
+
+                let favorites =
+                JSON.parse(
+                    localStorage.getItem(
+                        "favorites"
+                    )
+                ) || [];
+
+                favorites =
+                favorites.filter(
+
+                    item => item !== city
+
+                );
+
+                localStorage.setItem(
+
+                    "favorites",
+
+                    JSON.stringify(
+                        favorites
+                    )
+
+                );
+
+                displayFavorites();
+
+            }
+
+        );
+
+
 
         favoriteCitiesDiv.appendChild(
             button
@@ -339,7 +399,6 @@ function displayFavorites(){
     });
 
 }
-
 displayFavorites();
 locationBtn.addEventListener("click",()=>{
 

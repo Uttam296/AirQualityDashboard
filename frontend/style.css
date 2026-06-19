@@ -371,3 +371,14 @@ button:hover{
     text-transform:capitalize;
 
 }
+.delete-city{
+
+    color:red;
+
+    margin-left:10px;
+
+    cursor:pointer;
+
+    font-size:14px;
+
+}

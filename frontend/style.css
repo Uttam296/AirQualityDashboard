@@ -350,3 +350,24 @@ button:hover{
     backdrop-filter:blur(10px);
 
 }
+.weather-icon-container{
+
+    margin-bottom:20px;
+
+}
+
+#weatherIcon{
+
+    width:100px;
+
+    height:100px;
+
+}
+
+#weatherDescription{
+
+    color:white;
+
+    text-transform:capitalize;
+
+}

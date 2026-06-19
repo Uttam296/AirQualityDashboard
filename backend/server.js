@@ -55,7 +55,11 @@ const weather = weatherResponse.data;
 
     humidity:weather.main.humidity,
 
-    wind:weather.wind.speed
+    wind:weather.wind.speed,
+
+    icon:weather.weather[0].icon,
+
+    description:weather.weather[0].description
 
 });
 

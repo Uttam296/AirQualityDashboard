@@ -76,7 +76,13 @@ data.humidity + " %";
 
 document.getElementById("wind").innerText =
 data.wind + " m/s";
+document.getElementById("weatherIcon").src =
 
+`https://openweathermap.org/img/wn/${data.icon}@2x.png`;
+
+document.getElementById("weatherDescription").innerText =
+
+data.description;
         if (!map) {
 
     map = L.map("map").setView(

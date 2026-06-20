@@ -2,10 +2,17 @@ const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
 require("dotenv").config();
+const authRoutes = require("./routes/authRoutes");
+const connectDB = require("./config/db");
 
 const app = express();
+connectDB();
+
+app.use(express.json());
+app.use("/api/auth", authRoutes);
 
 app.use(cors());
+app.use(express.json());
 
 const PORT = 3000;
 

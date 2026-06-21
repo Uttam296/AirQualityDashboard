@@ -1,3 +1,4 @@
+const favoriteRoutes = require( "./routes/favoriteRoutes" );
 const express = require("express");
 const cors = require("cors");
 const axios = require("axios");
@@ -10,6 +11,13 @@ connectDB();
 
 app.use(express.json());
 app.use("/api/auth", authRoutes);
+app.use(
+
+    "/api/favorites",
+
+    favoriteRoutes
+
+);
 
 app.use(cors());
 app.use(express.json());

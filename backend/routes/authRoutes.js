@@ -114,7 +114,10 @@ router.post("/login", async (req, res) => {
 
         res.json({
 
-            token
+             token,
+
+            userId: user._id
+
 
         });
 

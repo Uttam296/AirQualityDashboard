@@ -1,3 +1,8 @@
+const historyRoutes = require(
+
+    "./routes/historyRoutes"
+
+);
 const favoriteRoutes = require( "./routes/favoriteRoutes" );
 const express = require("express");
 const cors = require("cors");
@@ -16,6 +21,13 @@ app.use(
     "/api/favorites",
 
     favoriteRoutes
+
+);
+app.use(
+
+    "/api/history",
+
+    historyRoutes
 
 );
 

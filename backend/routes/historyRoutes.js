@@ -1,14 +1,17 @@
 const express = require("express");
 
 const History = require("../models/History");
+const authMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
 
 // Save search history
 
-router.post("/", async (req, res) => {
-
+router.post(
+    "/",
+    authMiddleware,
+    async (req, res) => {
     try {
 
         const history = new History({
@@ -46,8 +49,10 @@ router.post("/", async (req, res) => {
 
 // Get all history of a user
 
-router.get("/:userId", async (req, res) => {
-
+router.get(
+    "/:userId",
+    authMiddleware,
+    async (req, res) => {
     try {
 
         const history = await History.find({

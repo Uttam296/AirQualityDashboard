@@ -1,4 +1,5 @@
-
+const authMiddleware =
+require("../middleware/authMiddleware");
 const express = require("express");
 
 const Favorite = require("../models/Favorite");
@@ -8,8 +9,10 @@ const router = express.Router();
 
 // Add favorite city
 
-router.post("/", async (req, res) => {
-
+router.post(
+    "/",
+    authMiddleware,
+    async(req,res)=>{
     try {
 
         const favorite = new Favorite({
@@ -45,8 +48,10 @@ router.post("/", async (req, res) => {
 
 // Get all favorites of a user
 
-router.get("/:userId", async (req, res) => {
-
+router.get(
+    "/:userId",
+    authMiddleware,
+    async(req,res)=>{
     try {
 
         const favorites = await Favorite.find({

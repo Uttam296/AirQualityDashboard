@@ -1,3 +1,12 @@
+const token =
+localStorage.getItem("token");
+
+if(!token){
+
+    window.location.href =
+    "login.html";
+
+}
 const locationBtn =
 document.getElementById("locationBtn");
 
@@ -496,3 +505,28 @@ function drawHistoryChart(){
     );
 
 }
+const logoutBtn =
+document.getElementById(
+    "logoutBtn"
+);
+
+logoutBtn.addEventListener(
+
+    "click",
+
+    ()=>{
+
+        localStorage.removeItem(
+            "token"
+        );
+
+        localStorage.removeItem(
+            "userId"
+        );
+
+        window.location.href =
+        "login.html";
+
+    }
+
+);

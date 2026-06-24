@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Signup</title>
+
+<style>
+
+body{
+
+    margin:0;
+
+    height:100vh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    background:linear-gradient(
+        135deg,
+        #43cea2,
+        #185a9d
+    );
+
+    font-family:Arial,sans-serif;
+
+}
+
+.signup-container{
+
+    background:white;
+
+    padding:40px;
+
+    width:350px;
+
+    border-radius:20px;
+
+    text-align:center;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.2);
+
+}
+
+h1{
+
+    color:#333;
+
+}
+
+input{
+
+    width:90%;
+
+    padding:12px;
+
+    margin:10px 0;
+
+    border-radius:10px;
+
+    border:1px solid #ccc;
+
+}
+
+button{
+
+    width:100%;
+
+    padding:12px;
+
+    border:none;
+
+    border-radius:10px;
+
+    background:#43cea2;
+
+    color:white;
+
+    font-size:18px;
+
+    cursor:pointer;
+
+}
+
+button:hover{
+
+    background:#2ebd92;
+
+}
+
+a{
+
+    text-decoration:none;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="signup-container">
+
+    <h1>🌍 AQI Signup</h1>
+
+    <input
+    type="text"
+    id="username"
+    placeholder="Username">
+
+    <input
+    type="email"
+    id="email"
+    placeholder="Email">
+
+    <input
+    type="password"
+    id="password"
+    placeholder="Password">
+
+    <button id="signupBtn">
+
+        Signup
+
+    </button>
+
+    <br><br>
+
+    <a href="login.html">
+
+        Already have an account?
+
+    </a>
+
+</div>
+
+<script src="signup.js"></script>
+
+</body>
+</html>

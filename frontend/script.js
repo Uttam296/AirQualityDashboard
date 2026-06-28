@@ -44,30 +44,37 @@ updateBtn.addEventListener("click", async () => {
         );
 
         const data = await response.json();
-        let history =
-JSON.parse(
-    localStorage.getItem("aqiHistory")
-) || [];
+const token = sessionStorage.getItem("token");
 
-history.push({
+const userId = sessionStorage.getItem("userId");
 
-    city: city,
+await fetch(
 
-    aqi: data.aqi
+    "http://localhost:3000/api/history",
 
-});
+    {
 
-if(history.length > 10){
+        method: "POST",
 
-    history.shift();
+        headers: {
 
-}
+            "Content-Type": "application/json",
 
-localStorage.setItem(
+            "Authorization": token
 
-    "aqiHistory",
+        },
 
-    JSON.stringify(history)
+        body: JSON.stringify({
+
+            userId,
+
+            city,
+
+            aqi: data.aqi
+
+        })
+
+    }
 
 );
 
@@ -501,58 +508,75 @@ locationBtn.addEventListener("click",()=>{
 
 });
 drawHistoryChart();
-function drawHistoryChart(){
+async function drawHistoryChart(){
 
-    let history =
-    JSON.parse(
-        localStorage.getItem("aqiHistory")
-    ) || [];
+    const token = sessionStorage.getItem("token");
 
-    if(historyChart){
+    const userId = sessionStorage.getItem("userId");
 
-        historyChart.destroy();
+    try{
 
-    }
+        const response = await fetch(
 
-    historyChart = new Chart(
+            `http://localhost:3000/api/history/${userId}`,
 
-        document.getElementById(
-            "historyChart"
-        ),
+            {
 
-        {
+                headers:{
 
-            type:"line",
+                    "Authorization": token
 
-            data:{
-
-                labels:
-
-                history.map(
-                    item => item.city
-                ),
-
-                datasets:[{
-
-                    label:"AQI",
-
-                    data:
-
-                    history.map(
-                        item => item.aqi
-                    ),
-
-                    fill:false,
-
-                    tension:.4
-
-                }]
+                }
 
             }
 
+        );
+
+        const history = await response.json();
+
+        if(historyChart){
+
+            historyChart.destroy();
+
         }
 
-    );
+        historyChart = new Chart(
+
+            document.getElementById("historyChart"),
+
+            {
+
+                type:"line",
+
+                data:{
+
+                    labels: history.map(item => item.city),
+
+                    datasets:[{
+
+                        label:"AQI",
+
+                        data: history.map(item => item.aqi),
+
+                        fill:false,
+
+                        tension:0.4
+
+                    }]
+
+                }
+
+            }
+
+        );
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+    }
 
 }
 const logoutBtn =

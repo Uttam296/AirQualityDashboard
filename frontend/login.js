@@ -51,8 +51,15 @@ loginBtn.addEventListener(
 
             const data =
             await response.json();
+            console.log(data);
 
-            localStorage.setItem(
+sessionStorage.setItem("token", data.token);
+sessionStorage.setItem("userId", data.userId);
+
+console.log("Stored Token:", sessionStorage.getItem("token"));
+console.log("Stored UserId:", sessionStorage.getItem("userId"));
+
+            sessionStorage.setItem(
 
                 "token",
 
@@ -60,7 +67,7 @@ loginBtn.addEventListener(
 
             );
 
-            localStorage.setItem(
+            sessionStorage.setItem(
 
                 "userId",
 

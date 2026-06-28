@@ -83,8 +83,10 @@ router.get(
 
 // Delete favorite city
 
-router.delete("/:id", async (req, res) => {
-
+router.delete(
+    "/:id",
+    authMiddleware,
+    async (req, res) => {
     try {
 
         await Favorite.findByIdAndDelete(

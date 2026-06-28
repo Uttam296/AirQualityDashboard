@@ -1,5 +1,7 @@
-const token =
-localStorage.getItem("token");
+const token = sessionStorage.getItem("token");
+
+const userId = sessionStorage.getItem("userId");
+
 
 if(!token){
 
@@ -286,126 +288,174 @@ drawHistoryChart();
 
 });
 
-saveCityBtn.addEventListener("click",()=>{
+saveCityBtn.addEventListener("click", async () => {
 
-    const city =
-    document.getElementById("cityInput").value;
+    try {
 
-    let favorites =
-    JSON.parse(
-        localStorage.getItem("favorites")
-    ) || [];
+        const city = document.getElementById("cityInput").value;
 
-    if(city && !favorites.includes(city)){
+        const token = sessionStorage.getItem("token");
+        const userId = sessionStorage.getItem("userId");
 
-        favorites.push(city);
+        if (!city) {
 
-        localStorage.setItem(
+            alert("Please enter a city.");
 
-            "favorites",
+            return;
 
-            JSON.stringify(favorites)
+        }
+
+        const response = await fetch(
+
+            "http://localhost:3000/api/favorites",
+
+            {
+
+                method: "POST",
+
+                headers: {
+
+                    "Content-Type": "application/json",
+
+                    "Authorization": token
+
+                },
+
+                body: JSON.stringify({
+
+                    userId,
+
+                    city
+
+                })
+
+            }
 
         );
 
+        const data = await response.json();
+
+        alert(data.message);
+
+        displayFavorites();
+
     }
 
-    displayFavorites();
+    catch (error) {
+
+        console.log(error);
+
+    }
 
 });
 
 
-function displayFavorites(){
+async function displayFavorites(){
 
     favoriteCitiesDiv.innerHTML = "";
 
-    let favorites =
-    JSON.parse(
-        localStorage.getItem("favorites")
-    ) || [];
+    const token = sessionStorage.getItem("token");
 
-    favorites.forEach(city=>{
+    const userId = sessionStorage.getItem("userId");
 
-        const button =
-        document.createElement("button");
+    try{
 
-        button.className =
-        "favorite-city";
+        const response = await fetch(
 
-        button.innerHTML =
+            `http://localhost:3000/api/favorites/${userId}`,
 
-        `${city}
-        <span class="delete-city">
-        ❌
-        </span>`;
+            {
 
+                headers:{
 
+                    "Authorization": token
 
-        button.addEventListener(
-
-            "click",
-
-            ()=>{
-
-                document.getElementById(
-                    "cityInput"
-                ).value = city;
-
-                updateBtn.click();
+                }
 
             }
 
         );
 
+        const favorites = await response.json();
 
+        favorites.forEach(item=>{
 
-        button.querySelector(
-            ".delete-city"
-        ).addEventListener(
+            const button =
+            document.createElement("button");
 
-            "click",
+            button.className =
+            "favorite-city";
 
-            (e)=>{
+            button.innerHTML =
 
-                e.stopPropagation();
+            `${item.city}
+            <span class="delete-city">
+            ❌
+            </span>`;
 
-                let favorites =
-                JSON.parse(
-                    localStorage.getItem(
-                        "favorites"
-                    )
-                ) || [];
+            button.addEventListener(
 
-                favorites =
-                favorites.filter(
+                "click",
 
-                    item => item !== city
+                ()=>{
 
-                );
+                    document.getElementById(
+                        "cityInput"
+                    ).value = item.city;
 
-                localStorage.setItem(
+                    updateBtn.click();
 
-                    "favorites",
+                }
 
-                    JSON.stringify(
-                        favorites
-                    )
+            );
 
-                );
+            button.querySelector(
+                ".delete-city"
+            ).addEventListener(
 
-                displayFavorites();
+                "click",
 
-            }
+                async(e)=>{
 
-        );
+                    e.stopPropagation();
 
+                    await fetch(
 
+                        `http://localhost:3000/api/favorites/${item._id}`,
 
-        favoriteCitiesDiv.appendChild(
-            button
-        );
+                        {
 
-    });
+                            method:"DELETE",
+
+                            headers:{
+
+                                "Authorization":token
+
+                            }
+
+                        }
+
+                    );
+
+                    displayFavorites();
+
+                }
+
+            );
+
+            favoriteCitiesDiv.appendChild(
+                button
+            );
+
+        });
+
+    }
+
+    catch(error){
+
+        console.log(error);
+
+    }
 
 }
 displayFavorites();
@@ -516,11 +566,11 @@ logoutBtn.addEventListener(
 
     ()=>{
 
-        localStorage.removeItem(
+        sessionStorage.removeItem(
             "token"
         );
 
-        localStorage.removeItem(
+        sessionStorage.removeItem(
             "userId"
         );
 

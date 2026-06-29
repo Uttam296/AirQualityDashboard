@@ -1,3 +1,4 @@
+const profileRoutes = require("./routes/profileRoutes");
 const historyRoutes = require(
 
     "./routes/historyRoutes"
@@ -31,6 +32,7 @@ app.use(
     historyRoutes
 
 );
+app.use("/api/profile", profileRoutes);
 
 app.use(cors());
 app.use(express.json());

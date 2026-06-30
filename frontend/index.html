@@ -18,15 +18,63 @@ src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js">
 </head>
 <body>
 
-    <h1>🌍 Air Quality Dashboard</h1>
-    <button id="themeBtn">
-    🌙 Dark Mode
-</button>
-<button id="logoutBtn">
+ <header class="navbar">
 
-    Logout
+    <div class="logo">
 
-</button>
+        🌍 Air Quality Dashboard
+
+    </div>
+
+    <div class="nav-right">
+
+        <button id="themeBtn">
+
+            🌙 Dark Mode
+
+        </button>
+
+        <div class="profile-menu" id="profileBtn">
+
+            <div class="profile-avatar">
+
+                <span id="profileInitial">
+
+                    U
+
+                </span>
+
+                <div class="online-dot"></div>
+
+            </div>
+
+            <div class="profile-details">
+
+                <span id="profileName">
+
+                    Loading...
+
+                </span>
+
+                <small>
+
+                    View Profile
+
+                </small>
+
+            </div>
+
+        </div>
+
+        <button id="logoutBtn">
+
+            Logout
+
+        </button>
+
+    </div>
+
+</header>
     
 
     <div class="search-box">

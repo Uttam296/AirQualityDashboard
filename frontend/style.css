@@ -22,9 +22,14 @@ body{
 
 }
 
-h1{
+.logo{
+
+    font-size:42px;
+
     color:white;
-    padding-top:20px;
+
+    font-weight:bold;
+
 }
 
 .search-box{
@@ -380,5 +385,147 @@ button:hover{
     cursor:pointer;
 
     font-size:14px;
+
+}
+.profile-menu{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:12px;
+
+    background:white;
+
+    padding:8px 16px;
+
+    border-radius:40px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+
+    width:auto;
+
+}
+
+.profile-menu:hover{
+
+    transform:translateY(-3px);
+
+    box-shadow:0 15px 30px rgba(0,0,0,.25);
+
+}
+
+.profile-avatar{
+
+    width:55px;
+
+    height:55px;
+
+    border-radius:50%;
+
+    background:linear-gradient(
+        135deg,
+        #00c6ff,
+        #0072ff
+    );
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    position:relative;
+
+    color:white;
+
+    font-size:22px;
+
+    font-weight:bold;
+
+}
+
+.online-dot{
+
+    width:14px;
+
+    height:14px;
+
+    border-radius:50%;
+
+    background:#00e676;
+
+    border:2px solid white;
+
+    position:absolute;
+
+    bottom:3px;
+
+    right:3px;
+
+}
+
+.profile-details{
+
+    display:flex;
+
+    flex-direction:column;
+
+}
+
+.profile-details span{
+
+    font-size:17px;
+
+    font-weight:bold;
+
+    color:#333;
+
+}
+
+.profile-details small{
+
+    color:#777;
+
+    font-size:13px;
+
+}
+.navbar{
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:20px 50px;
+
+    margin-bottom:40px;
+
+}
+
+.logo{
+
+    color:white;
+
+    font-size:42px;
+
+    font-weight:bold;
+
+}
+
+.nav-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
 
 }

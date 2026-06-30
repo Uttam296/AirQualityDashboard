@@ -604,3 +604,59 @@ logoutBtn.addEventListener(
     }
 
 );
+const profileBtn =
+document.getElementById(
+    "profileBtn"
+);
+
+profileBtn.addEventListener(
+
+    "click",
+
+    ()=>{
+
+        window.location.href =
+        "profile.html";
+
+    }
+
+);
+fetch(
+
+    `http://localhost:3000/api/profile/${sessionStorage.getItem("userId")}`,
+
+    {
+
+        headers:{
+
+            "Authorization":
+
+            sessionStorage.getItem("token")
+
+        }
+
+    }
+
+)
+
+.then(response=>response.json())
+
+.then(data=>{
+
+    document.getElementById(
+
+        "profileName"
+
+    ).innerText =
+
+    data.username;
+
+    document.getElementById(
+
+        "profileInitial"
+
+    ).innerText =
+
+    data.username[0].toUpperCase();
+
+});
